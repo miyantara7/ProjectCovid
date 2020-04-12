@@ -2,8 +2,6 @@ package com.lawencon.covid.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.covid.model.Covid;
 import com.lawencon.covid.service.CovidService;
 
 @RestController
 @RequestMapping("/covid")
 @CrossOrigin("*")
-public class CovidController {
+public class CovidController extends BaseController<Covid> {
 
 	
 	@Autowired
@@ -44,7 +40,7 @@ public class CovidController {
 	public ResponseEntity<?> insertCovid(@RequestBody String content) {
 		String pesan = "";
 		try {
-			Covid covids = new ObjectMapper().readValue(content, Covid.class);
+			Covid covids = readValue(content, Covid.class);
 			pesan  = covid_service.insertCovid(covids);
 			return new ResponseEntity<>(pesan, HttpStatus.OK);
 		} catch (Exception e) {
@@ -58,7 +54,7 @@ public class CovidController {
 	public ResponseEntity<?> updateCovid(@RequestBody String content) {
 		String pesan = "";
 		try {
-			Covid covids = new ObjectMapper().readValue(content, Covid.class);
+			Covid covids = readValue(content, Covid.class);
 			pesan  = covid_service.updateCovid(covids);
 			return new ResponseEntity<>(pesan, HttpStatus.OK);
 		} catch (Exception e) {
@@ -72,7 +68,7 @@ public class CovidController {
 	public ResponseEntity<?> deleteCovid(@RequestBody String content) {
 		String pesan = "";
 		try {
-			Covid covids = new ObjectMapper().readValue(content, Covid.class);
+			Covid covids = readValue(content, Covid.class);
 			pesan  = covid_service.deleteCovid(covids);
 			return new ResponseEntity<>(pesan, HttpStatus.OK);
 		} catch (Exception e) {
@@ -84,7 +80,7 @@ public class CovidController {
 	
 	@GetMapping("/viewall")
 	public ResponseEntity<?> viewsALLCovid() {
-		List<Map<String, Object>> listCovid = new ArrayList<>();
+		List<Integer> listCovid = new ArrayList<>();
 		try {
 			listCovid  = covid_service.viewsTotal();
 			return new ResponseEntity<>(listCovid, HttpStatus.OK);

@@ -1,5 +1,6 @@
 package com.lawencon.covid.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,8 +66,16 @@ public class CovidImplService implements CovidService {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewsTotal() throws Exception {
-		return covid_dao.viewTotal();
+	public List<Integer> viewsTotal() throws Exception {
+		List<Map<String, Object>> listCovid = covid_dao.viewTotal();
+		List<Integer> listValue = new ArrayList<>();
+		if(!listCovid.isEmpty()) {
+			listValue.add(Integer.valueOf(listCovid.get(0).get("TotalSembuh").toString()));
+			listValue.add(Integer.valueOf(listCovid.get(0).get("TotalPositif").toString()));
+			listValue.add(Integer.valueOf(listCovid.get(0).get("TotalDeath").toString()));
+			listValue.add(Integer.valueOf(listCovid.get(0).get("TotalNegatif").toString()));
+		}	
+		return listValue;
 	}
 
 }

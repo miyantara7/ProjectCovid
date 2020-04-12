@@ -16,7 +16,7 @@ import com.lawencon.covid.service.UserService;
 @RestController
 @RequestMapping("/login")
 @CrossOrigin
-public class UserController {
+public class UserController extends BaseController<User> {
 
 	@Autowired
 	private UserService user_serviec;
@@ -25,7 +25,7 @@ public class UserController {
 	public ResponseEntity<?> insertHhiber(@RequestBody String content) {
 		User users = new User();
 		try {
-			User user = new ObjectMapper().readValue(content, User.class);
+			User user = readValue(content, User.class);
 			users  = user_serviec.findUser(user);
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {

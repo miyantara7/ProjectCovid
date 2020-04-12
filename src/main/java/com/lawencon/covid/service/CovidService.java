@@ -11,5 +11,5 @@ public interface CovidService {
 	abstract List<Covid> viewCovid() throws Exception;
 	abstract String updateCovid(Covid covid) throws Exception;
 	abstract String deleteCovid(Covid covid) throws Exception;
-	abstract List<Map<String, Object>> viewsTotal() throws Exception;
+	abstract List<Integer> viewsTotal() throws Exception;
 }
